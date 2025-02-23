@@ -7,7 +7,7 @@ const Signin = () => {
     <div className="w-1/2 bg-white flex items-center justify-center">
            
         <form className="w-full max-w-md space-y-4">
-        <h2 className="text-3xl text-black text-center font-semibold mb-6  font-[Poppins]">SIGN UP</h2>
+        <h2 className="text-3xl text-black text-center font-semibold mb-6  font-[Poppins]">SIGN IN</h2>
           <input
             type="text"
             placeholder="Name"

@@ -1,8 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import Home from './pages/Home.jsx'
 import Signup from './pages/Signup.jsx'
 import Signin from './pages/Signin.jsx'
+import Form from './pages/Form.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,20 +13,22 @@ import {
 const router=createBrowserRouter([
   {
     path:"/signup",
-    element:<Signin/>
+    element:<Signup/>
   },
-  {
+  {   
     path:"/signin",
     element:<Signin/>
   },
-  // {
-  //   path:"/form",
-  //   element:<Form/>
-  // },
-  // {
-  //   path:"/student",
-  //   element:<home/>
-  // },
+  {
+    path:"/form",
+    element:<Form/>
+  },
+  {
+    path:"/home",
+    element:<Home/>
+  }
+
+
  
  
 ]);
@@ -36,12 +40,7 @@ const router=createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <>
-    <Signup/>
-   
-    
- 
-    </>
+     <RouterProvider router={router} />
     
   </StrictMode>,
 )
