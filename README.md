@@ -93,22 +93,25 @@ This project aims to develop an *AI-powered recommendation system* that analyzes
 
 ## How to Run the Project
 1. Clone the repository:
+   ```
    git clone https://github.com/ananya-dhiman/Student
    cd Student
-   
-2. Install dependencies and Start the backend:
-   ```cd .\Machine_Leanring
+   ```
+3. Install dependencies and Start the backend:
+   ```
+   cd .\Machine_Leanring
    pip install -r requirements.txt
    python main.py
    cd .\Backend
    npm install
    node .\src\server.js
-   
-3. Install dependencies and Start the frontend:
+   ```
+4. Install dependencies and Start the frontend:
+   ```
    cd .\Frontend
    npm install
    npm run dev
-   
+   ```
 5. Access the app at http://localhost:5173
 
 ## Future Enhancements
