@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(uuid())
+  name           String
+  email          String    @unique
+  passwordHash   String
+  educationBoard EducationBoard  
+  schoolYear     Int       // Numeric school year (e.g., 9 for 9th Std)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  roadmaps       Roadmap[]  
+  progress       UserProgress[]  
+}
+
+enum EducationBoard {
+  ICSE
+  CBSE
+  HSC
+  OTHER
+}
+
+model Roadmap {
+  id             String  @id @default(uuid())
+  title          String
+  userId         String
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalNodes     Int     @default(0)  // Total topics in the roadmap
+  completedNodes Int     @default(0)  // Number of completed topics
+  createdAt      DateTime @default(now())
+
+  nodes          Node[]
+}
+
+model Node {
+  id        String  @id @default(uuid())
+  title     String
+  roadmapId String
+  roadmap   Roadmap @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+  shortNotes String
+  youtubeLink String
+  createdAt  DateTime @default(now())
+
+  quiz      Quiz
+}
+
+model Quiz {
+  id      String  @id @default(uuid())
+  nodeId  String  @unique
+  node    Node    @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+
+  questions Question[]
+}
+
+model Question {
+  id       String  @id @default(uuid())
+  quizId   String
+  quiz     Quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  text     String  
+
+  options  Option[]
+}
+
+model Option {
+  id          String  @id @default(uuid())
+  questionId  String
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  text        String  
+  isCorrect   Boolean @default(false)  
+}
+
+model UserProgress {
+  id         String  @id @default(uuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nodeId     String
+  node       Node    @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  score      Int
+  isCompleted Boolean @default(false)
+
+  createdAt  DateTime @default(now())
+}
